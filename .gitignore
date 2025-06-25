@@ -1,0 +1,63 @@
+# Общие исключения
+HELP.md
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Исходный код (разрешаем build в src)
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDE
+## Eclipse/STS
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+## IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+## VS Code
+.vscode/
+
+# Node.js (если нужно)
+node_modules/
+.npm
+.pnpm
+.yarn-integrity
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Логи и кэш
+*.log
+logs/
+.mvn/
+gradle-app.setting
+
+# Прочее
+*.swp
+*.bak
+*.tmp
+*~
