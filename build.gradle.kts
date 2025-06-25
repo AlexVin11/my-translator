@@ -27,8 +27,10 @@ extra["sentryVersion"] = "8.14.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation ("org.springframework.boot:spring-boot-configuration-processor")
+	annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
+	implementation ("org.springframework.boot:spring-boot-starter-validation")
 	implementation("io.sentry:sentry-spring-boot-starter-jakarta")
 	implementation("org.springframework.kafka:spring-kafka")
 	compileOnly("org.projectlombok:lombok")
