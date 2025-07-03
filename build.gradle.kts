@@ -27,6 +27,7 @@ extra["sentryVersion"] = "8.14.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
