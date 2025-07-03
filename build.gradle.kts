@@ -26,7 +26,15 @@ repositories {
 extra["sentryVersion"] = "8.14.0"
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.security:spring-security-config:6.4.2")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation ("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
