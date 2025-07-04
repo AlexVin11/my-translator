@@ -1,0 +1,24 @@
+---
+
+spring:
+  application:
+    name: avinecode
+  jpa:
+    generate-ddl: true
+  output:
+    ansi:
+      enabled: always
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1, expireAfterWrite=24h
+    cache-names: languages
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /api-docs
+yandex:
+  api-key: ${YANDEX_API_KEY}
+  folder-id: ${YANDEX_FOLDER_ID}
