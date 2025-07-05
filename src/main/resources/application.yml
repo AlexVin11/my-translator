@@ -1,24 +1,54 @@
 ---
 
 spring:
+  profiles:
+    active: dev
+  security:
+    filter:
+      dispatcher-types: REQUEST,ERROR,ASYNC
   application:
     name: avinecode
   jpa:
     generate-ddl: true
+    show-sql: true  # Добавлено для удобства разработки
+    hibernate:
+      ddl-auto: validate  # Безопаснее, чем create-drop/update в проде
   output:
     ansi:
       enabled: always
   cache:
     type: caffeine
     caffeine:
-      spec: maximumSize=1, expireAfterWrite=24h
-    cache-names: languages
+      spec: maximumSize=1000, expireAfterWrite=24h  # Увеличено максимальное количество элементов
+    cache-names: languages,translations  # Добавлен пример дополнительного кеша
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui
+    path: /swagger-ui.html
+    operations-sorter: alpha  # Сортировка операций по алфавиту
+    tags-sorter: alpha
   api-docs:
-    path: /api-docs
+    path: /v3/api-docs
+  show-actuator: true  # Добавлено для отображение эндпоинтов актуатора
+
+# Конфигурация Yandex Cloud
 yandex:
-  api-key: ${YANDEX_API_KEY}
-  folder-id: ${YANDEX_FOLDER_ID}
+  translate:
+    api-key: ${YANDEX_TRANSLATE_API_KEY:}  # Более конкретное имя
+    folder-id: ${YANDEX_FOLDER_ID:}
+    endpoint: https://translate.api.cloud.yandex.net/translate/v2  # Пример явного указания endpoint
+
+# Конфигурация RSA ключей
+rsa:
+  keys:
+    private: ${RSA_PRIVATE_KEY:}  # Более стандартное именование
+    public: ${RSA_PUBLIC_KEY:}
+  algorithm: RS256  # Добавлен явный алгоритм
+  token:
+    expiration: 86400000  # 24 часа в миллисекундах
+
+# Настройки безопасности (дополнительно)
+security:
+  jwt:
+    issuer: avinecode
+    audience: web-client

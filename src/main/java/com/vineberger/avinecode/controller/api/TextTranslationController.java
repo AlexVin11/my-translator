@@ -1,7 +1,7 @@
-package com.vineberger.avinecode.controller;
+package com.vineberger.avinecode.controller.api;
 
-import com.vineberger.avinecode.dto.myservice.MessageForExternalServiceDTO;
-import com.vineberger.avinecode.dto.myservice.MessageForMyService;
+import com.vineberger.avinecode.dto.messagesforservices.MessageForExternalServiceDTO;
+import com.vineberger.avinecode.dto.messagesforservices.MessageForMyService;
 import com.vineberger.avinecode.service.YandexTranslateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

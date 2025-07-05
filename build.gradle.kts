@@ -24,48 +24,57 @@ repositories {
 	mavenCentral()
 }
 
-extra["sentryVersion"] = "8.14.0"
-
 dependencies {
+	// Базовые страттеры Spring Boot
+	implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
-	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-cache")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("org.springframework.boot:spring-boot-configuration-processor")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.security:spring-security-config:6.2.8")
+	implementation("org.springframework.security:spring-security-web")
+	implementation("org.springframework.security:spring-security-config")
+
+	// Дополнительные компоненты для удобства работы
+	implementation("org.springframework.data:spring-data-rest-hal-explorer")
+	implementation("org.springframework.kafka:spring-kafka")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+	implementation("io.github.cdimascio:dotenv-java:3.0.0")
+	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	testImplementation("org.springframework.security:spring-security-test")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-config:6.4.2")
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation ("org.springframework.boot:spring-boot-configuration-processor")
-	annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
-	implementation ("org.springframework.boot:spring-boot-starter-validation")
-	implementation("io.sentry:sentry-spring-boot-starter-jakarta")
-	implementation("org.springframework.kafka:spring-kafka")
-	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("org.postgresql:postgresql")
-	annotationProcessor("org.projectlombok:lombok")
+
+	// Тестирование
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation(platform("org.junit:junit-bom:5.10.0"))
 	testImplementation("org.junit.jupiter:junit-jupiter")
 	testImplementation("org.assertj:assertj-core:3.26.3")
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
-	implementation("net.datafaker:datafaker:2.0.2")
-	implementation("org.instancio:instancio-junit:3.3.1")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-}
+	testImplementation("net.datafaker:datafaker:2.0.2")
+	testImplementation("org.instancio:instancio-junit:3.3.1")
+	testImplementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
-dependencyManagement {
-	imports {
-		mavenBom("io.sentry:sentry-bom:${property("sentryVersion")}")
-	}
+	// Dev инструменты
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.springframework.boot:spring-boot-starter-logging")
+
+	// Базы данных
+	runtimeOnly("com.h2database:h2")
+	runtimeOnly("org.postgresql:postgresql")
+
+	// Аннотационный процессор для Lombok
+	annotationProcessor("org.projectlombok:lombok")
+
+	// Сборочные плагины
+	implementation(enforcedPlatform("org.junit:junit-bom:5.10.0"))
 }
 
 tasks.withType<Test> {

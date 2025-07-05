@@ -1,4 +1,4 @@
-package com.vineberger.avinecode.dto.myservice;
+package com.vineberger.avinecode.dto.messagesforservices;
 
 import lombok.Getter;
 import lombok.Setter;
