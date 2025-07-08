@@ -19,8 +19,8 @@ public class AppConfig {
     @PostConstruct
     public void init() {
         // Получаем переменные только из окружения
-        this.publicKeyPem = System.getenv("RSA_PUBLIC_PEM");
-        this.privateKeyPem = System.getenv("RSA_PRIVATE_PEM");
+        this.publicKeyPem = System.getenv("RSA_PUBLIC_KEY");
+        this.privateKeyPem = System.getenv("RSA_PRIVATE_KEY");
         this.yandexApiKey = System.getenv("YANDEX_API_KEY");
         this.yandexFolderId = System.getenv("YANDEX_FOLDER_ID");
 
@@ -31,8 +31,8 @@ public class AppConfig {
     private void validateEnvVars() {
         StringBuilder missingVars = new StringBuilder();
 
-        if (publicKeyPem == null) missingVars.append("RSA_PUBLIC_PEM ");
-        if (privateKeyPem == null) missingVars.append("RSA_PRIVATE_PEM ");
+        if (publicKeyPem == null) missingVars.append("RSA_PUBLIC_KEY ");
+        if (privateKeyPem == null) missingVars.append("RSA_PRIVATE_KEY ");
         if (yandexApiKey == null) missingVars.append("YANDEX_API_KEY ");
         if (yandexFolderId == null) missingVars.append("YANDEX_FOLDER_ID ");
 
