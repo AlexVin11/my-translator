@@ -1,54 +1,44 @@
----
-
 spring:
   profiles:
     active: dev
-  security:
-    filter:
-      dispatcher-types: REQUEST,ERROR,ASYNC
   application:
     name: avinecode
   jpa:
     generate-ddl: true
-    show-sql: true  # Добавлено для удобства разработки
+    show-sql: true
     hibernate:
-      ddl-auto: validate  # Безопаснее, чем create-drop/update в проде
+      ddl-auto: update
   output:
     ansi:
       enabled: always
   cache:
     type: caffeine
     caffeine:
-      spec: maximumSize=1000, expireAfterWrite=24h  # Увеличено максимальное количество элементов
-    cache-names: languages,translations  # Добавлен пример дополнительного кеша
+      spec: maximumSize=1000, expireAfterWrite=24h
+    cache-names: languages
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    operations-sorter: alpha  # Сортировка операций по алфавиту
+    operations-sorter: alpha
     tags-sorter: alpha
   api-docs:
     path: /v3/api-docs
-  show-actuator: true  # Добавлено для отображение эндпоинтов актуатора
+  show-actuator: true
 
-# Конфигурация Yandex Cloud
 yandex:
-  translate:
-    api-key: ${YANDEX_TRANSLATE_API_KEY:}  # Более конкретное имя
-    folder-id: ${YANDEX_FOLDER_ID:}
-    endpoint: https://translate.api.cloud.yandex.net/translate/v2  # Пример явного указания endpoint
+  api-key: ${YANDEX_API_KEY:}
+  folder-id: ${YANDEX_FOLDER_ID:}
 
-# Конфигурация RSA ключей
 rsa:
   keys:
-    private: ${RSA_PRIVATE_KEY:}  # Более стандартное именование
-    public: ${RSA_PUBLIC_KEY:}
-  algorithm: RS256  # Добавлен явный алгоритм
+    private-key: ${RSA_PRIVATE_KEY:}
+    public-key: ${RSA_PUBLIC_KEY:}
   token:
-    expiration: 86400000  # 24 часа в миллисекундах
+    expiration: 86400000
 
-# Настройки безопасности (дополнительно)
-security:
-  jwt:
-    issuer: avinecode
-    audience: web-client
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.web.access: DEBUG
