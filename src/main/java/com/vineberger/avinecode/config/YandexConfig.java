@@ -20,18 +20,22 @@ public class YandexConfig {
 
     private final String YANDEX_BASIC_URL = "https://translate.api.cloud.yandex.net/translate/v2";
 
-    public final String YANDEX_TRANSLATE_URL = YANDEX_BASIC_URL + "/translate";
+    /*private String yandexBasicUrl = ;
 
-    public final String YANDEX_AVAILABLE_LANGUAGES_URL = YANDEX_BASIC_URL + "/languages";
+    public final String YANDEX_TRANSLATE_URL = yandexBasicUrl + "/translate";
+
+    public final String YANDEX_AVAILABLE_LANGUAGES_URL = yandexBasicUrl + "/languages";*/
 
     @PostConstruct
     public void init() {
-        log.info("API Key: {}", getApiKey());
-        log.info("Folder ID: {}", getFolderId());
+        if (getApiKey() == null
+                || getFolderId() == null
+                /*|| getYandexBasicUrl() == null
+                || getYANDEX_TRANSLATE_URL().equals("/translate")
+                || getYANDEX_AVAILABLE_LANGUAGES_URL().equals("/languages")*/) {
 
-        // Дополнительная проверка
-        if (getApiKey() == null || getFolderId() == null) {
             throw new IllegalStateException("Yandex API configuration is not set properly!");
+
         }
     }
 }
