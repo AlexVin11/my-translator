@@ -56,11 +56,6 @@ public class User implements UserDetails, BaseEntity {
     @Size(min = 5)
     private String password;
 
-    /*@Column
-    @NotBlank
-    @NotNull
-    private String role;*/
-
     @CreatedDate
     private LocalDate createdAt;
 
@@ -80,12 +75,12 @@ public class User implements UserDetails, BaseEntity {
 
     @Override
     public String getPassword() {
-        return "Password cannot be shown";
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.getEmail();
+        return this.email;
     }
 
     @Override
