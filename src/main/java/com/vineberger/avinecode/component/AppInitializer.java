@@ -28,7 +28,6 @@ public class AppInitializer {
                 admin.setPassword(hashedPassword);
                 USER_REPOSITORY.save(admin);
                 System.out.println("Admin created successfully.");
-                System.out.println("Hashed password: " + hashedPassword);
             }
         };
     }
