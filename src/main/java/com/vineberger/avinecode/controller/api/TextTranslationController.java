@@ -9,15 +9,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/translate")
 @RequiredArgsConstructor
 public class TextTranslationController {
-    private final YandexTranslateService service;
+    private final YandexTranslateService SERVICE;
 
     @PostMapping()
-    public String translate(@RequestBody MessageForMyService message) throws Exception {
-        MessageForExternalServiceDTO messageForExternalServiceDTO = service.messageConfigurator(message);
-        return service.translateMessage(messageForExternalServiceDTO);
+    public Map<String, String> translate(@RequestBody MessageForMyService message) throws Exception {
+        MessageForExternalServiceDTO dto = SERVICE.messageConfigurator(message);
+        String translation = SERVICE.translateMessage(dto);
+
+        return Collections.singletonMap("translatedText", translation);
     }
 }
