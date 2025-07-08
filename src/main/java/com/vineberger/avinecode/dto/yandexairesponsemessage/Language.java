@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvailableLanguage {
+public class Language {
     private String code;
     private String name;
 }
