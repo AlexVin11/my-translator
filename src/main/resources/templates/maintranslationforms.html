@@ -26,16 +26,16 @@
 <div class="translation-container">
     <h2 class="text-center mb-4">Сервис перевода</h2>
 
-    <form id="translationForm" th:action="@{/translate}" method="post">
+    <form id="translationForm" th:action="@{/api/translate}" method="post">
         <div class="form-group">
-            <label for="sourceText" class="form-label">Текст для перевода:</label>
-            <textarea class="form-control" id="sourceText" name="sourceText" rows="4" required></textarea>
+            <label for="text" class="form-label">Текст для перевода:</label>
+            <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
         </div>
 
         <div class="form-group">
-            <label for="targetLanguage" class="form-label">Язык перевода:</label>
+            <label for="targetLanguageCode" class="form-label">Язык перевода:</label>
             <div class="d-flex align-items-center">
-                <select class="form-select" id="targetLanguage" name="targetLanguage" required>
+                <select class="form-select" id="targetLanguageCode" name="targetLanguageCode" required>
                     <option value="" disabled selected>Загрузка языков...</option>
                 </select>
                 <div id="languageLoading" class="spinner-border spinner-border-sm ms-2" role="status">
@@ -57,38 +57,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const languageSelect = document.getElementById('targetLanguage');
-        const loadingSpinner = document.getElementById('languageLoading');
-
-        // Показываем спиннер загрузки
-        loadingSpinner.style.display = 'inline-block';
-
-        // Загружаем список языков
-        fetch('/translate/languages')
-            .then(response => response.json())
-            .then(data => {
-                // Очищаем список
-                languageSelect.innerHTML = '';
-
-                // Добавляем языки в выпадающий список
-                data.languages.forEach(lang => {
-                    const option = document.createElement('option');
-                    option.value = lang.code;
-                    option.textContent = lang.name;
-                    languageSelect.appendChild(option);
-                });
-
-                // Скрываем спиннер
-                loadingSpinner.style.display = 'none';
-            })
-            .catch(error => {
-                console.error('Error loading languages:', error);
-                languageSelect.innerHTML = '<option value="ru">Русский (default)</option>';
-                loadingSpinner.style.display = 'none';
-            });
-    });
-</script>
+<script th:src="@{/js/mainformscript.js}"></script>
 </body>
 </html>
