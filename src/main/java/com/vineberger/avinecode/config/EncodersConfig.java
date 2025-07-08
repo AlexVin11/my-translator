@@ -40,8 +40,6 @@ public class EncodersConfig {
             Assert.notNull(rsaKeyProperties.getRsaPrivateKey(), "RSA private key cannot be null");
 
             log.debug("Creating JwtEncoder with RSA keys");
-            log.trace("Public Key: {}", rsaKeyProperties.getRsaPublicKey());
-            log.trace("Private Key: {}", rsaKeyProperties.getRsaPrivateKey());
 
             RSAKey rsaKey = new RSAKey.Builder(rsaKeyProperties.getRsaPublicKey())
                     .privateKey(rsaKeyProperties.getRsaPrivateKey())
@@ -63,7 +61,6 @@ public class EncodersConfig {
             Assert.notNull(rsaKeyProperties.getRsaPublicKey(), "RSA public key cannot be null");
 
             log.debug("Creating JwtDecoder with RSA public key");
-            log.trace("Public Key: {}", rsaKeyProperties.getRsaPublicKey());
 
             return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.getRsaPublicKey())
                     .signatureAlgorithm(SignatureAlgorithm.RS256)
