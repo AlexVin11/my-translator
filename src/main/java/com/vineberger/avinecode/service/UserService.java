@@ -22,13 +22,13 @@ public final class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    /*public List<UserDTO> getAll() {
+    public List<UserDTO> getAll() {
         var users = userRepository.findAll();
         var result = users.stream()
                 .map(userMapper::map)
                 .toList();
         return result;
-    }*/
+    }
 
     public UserDTO getCreatedByDefaultUser() {
         User user = userRepository.findByEmail("mycustomadmin@qq.com")
