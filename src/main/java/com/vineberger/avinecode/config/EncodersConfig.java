@@ -13,11 +13,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.util.Assert;
+
+import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
@@ -33,17 +36,20 @@ public class EncodersConfig {
     @Bean
     public JwtEncoder jwtEncoder() {
         try {
-            Assert.notNull(rsaKeyProperties.getPublicKey(), "RSA public key cannot be null");
-            Assert.notNull(rsaKeyProperties.getPrivateKey(), "RSA private key cannot be null");
+            Assert.notNull(rsaKeyProperties.getRsaPublicKey(), "RSA public key cannot be null");
+            Assert.notNull(rsaKeyProperties.getRsaPrivateKey(), "RSA private key cannot be null");
 
             log.debug("Creating JwtEncoder with RSA keys");
+            log.trace("Public Key: {}", rsaKeyProperties.getRsaPublicKey());
+            log.trace("Private Key: {}", rsaKeyProperties.getRsaPrivateKey());
 
-            JWK jwk = new RSAKey.Builder(rsaKeyProperties.getPublicKey())
-                    .privateKey(rsaKeyProperties.getPrivateKey())
+            RSAKey rsaKey = new RSAKey.Builder(rsaKeyProperties.getRsaPublicKey())
+                    .privateKey(rsaKeyProperties.getRsaPrivateKey())
+                    .keyID(UUID.randomUUID().toString())
                     .build();
 
-            JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-            return new NimbusJwtEncoder(jwks);
+            JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(rsaKey));
+            return new NimbusJwtEncoder(jwkSource);
 
         } catch (Exception e) {
             log.error("Failed to create JwtEncoder", e);
@@ -54,11 +60,13 @@ public class EncodersConfig {
     @Bean
     public JwtDecoder jwtDecoder() {
         try {
-            Assert.notNull(rsaKeyProperties.getPublicKey(), "RSA public key cannot be null");
+            Assert.notNull(rsaKeyProperties.getRsaPublicKey(), "RSA public key cannot be null");
 
             log.debug("Creating JwtDecoder with RSA public key");
+            log.trace("Public Key: {}", rsaKeyProperties.getRsaPublicKey());
 
-            return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.getPublicKey())
+            return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.getRsaPublicKey())
+                    .signatureAlgorithm(SignatureAlgorithm.RS256)
                     .build();
 
         } catch (Exception e) {
